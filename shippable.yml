@@ -1,0 +1,37 @@
+language: none
+
+env:
+  - TF_VERSION=0.11.5
+
+resources:
+  - name: azure_cli_configuration
+    type: cliConfig
+    integration: Azure (Chatbot Experiments)
+
+  - name: scheduled_deprovisioning
+    type: time
+    versionTemplate:
+      interval: "30 22 * * *"
+
+jobs:
+  - name: provisioning
+    type: runSh
+    steps:
+      - IN: azure_cli_configuration
+      - IN: chatbot-170-infrastructure_master
+      - TASK:
+        - script: scripts/ensure-terraform.sh $TF_VERSION
+        - script: scripts/export-azure-environment.sh
+        - script: scripts/execute-terraform.sh apply
+
+  - name: deprovisioning
+    type: runSh
+    steps:
+      - IN: azure_cli_configuration
+      - IN: scheduled_deprovisioning
+      - IN: chatbot-170-infrastructure_master
+        switch: off
+      - TASK:
+        - script: scripts/ensure-terraform.sh $TF_VERSION
+        - script: scripts/export-azure-environment.sh
+        - script: scripts/execute-terraform.sh destroy
