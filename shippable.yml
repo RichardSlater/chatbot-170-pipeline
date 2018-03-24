@@ -27,6 +27,7 @@ jobs:
       - IN: azure_cli_configuration
       - IN: chatbot-170-infrastructure_master
       - TASK:
+        - script: chmod +x $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/*.sh
         - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/ensure-terraform.sh $TF_VERSION
         - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/export-azure-environment.sh
         - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/execute-terraform.sh apply
@@ -39,6 +40,7 @@ jobs:
       - IN: chatbot-170-infrastructure_master
         switch: off
       - TASK:
+        - script: chmod +x $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/*.sh
         - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/ensure-terraform.sh $TF_VERSION
         - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/export-azure-environment.sh
         - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/execute-terraform.sh destroy
