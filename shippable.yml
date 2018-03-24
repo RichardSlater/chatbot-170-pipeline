@@ -1,9 +1,5 @@
 language: none
 
-env:
-  global:
-    - TF_VERSION=0.11.5
-
 resources:
 
   - name: chatbot-170-infrastructure_master
@@ -31,7 +27,7 @@ jobs:
       - TASK:
         - script: chmod +x $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/*.sh
         - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/ensure-terraform.sh 0.11.5
-        - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/export-azure-environment.sh
+        - script: . $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/export-azure-environment.sh
         - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/execute-terraform.sh apply
 
   - name: deprovisioning
@@ -44,5 +40,5 @@ jobs:
       - TASK:
         - script: chmod +x $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/*.sh
         - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/ensure-terraform.sh 0.11.5
-        - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/export-azure-environment.sh
+        - script: . $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/export-azure-environment.sh
         - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/execute-terraform.sh destroy
