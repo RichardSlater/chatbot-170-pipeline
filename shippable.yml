@@ -1,7 +1,8 @@
 language: none
 
 env:
-  - TF_VERSION=0.11.5
+  global:
+    - TF_VERSION=0.11.5
 
 resources:
   - name: chatbot-170-infrastructure_master
