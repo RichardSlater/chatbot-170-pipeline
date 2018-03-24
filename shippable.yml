@@ -27,9 +27,9 @@ jobs:
       - IN: azure_cli_configuration
       - IN: chatbot-170-infrastructure_master
       - TASK:
-        - script: scripts/ensure-terraform.sh $TF_VERSION
-        - script: scripts/export-azure-environment.sh
-        - script: scripts/execute-terraform.sh apply
+        - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/ensure-terraform.sh $TF_VERSION
+        - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/export-azure-environment.sh
+        - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/execute-terraform.sh apply
 
   - name: deprovisioning
     type: runSh
@@ -39,6 +39,6 @@ jobs:
       - IN: chatbot-170-infrastructure_master
         switch: off
       - TASK:
-        - script: scripts/ensure-terraform.sh $TF_VERSION
-        - script: scripts/export-azure-environment.sh
-        - script: scripts/execute-terraform.sh destroy
+        - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/ensure-terraform.sh $TF_VERSION
+        - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/export-azure-environment.sh
+        - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/execute-terraform.sh destroy
