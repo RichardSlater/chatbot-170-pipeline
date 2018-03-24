@@ -4,6 +4,13 @@ env:
   - TF_VERSION=0.11.5
 
 resources:
+  - name: chatbot-170-infrastructure_master
+    type: gitRepo
+    integration: github
+    versionTemplate:
+      sourceName: RichardSlater/chatbot-170-infrastructure
+      branch: master
+
   - name: azure_cli_configuration
     type: cliConfig
     integration: Azure (Chatbot Experiments)
