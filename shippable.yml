@@ -37,6 +37,8 @@ jobs:
       - IN: scheduled_deprovisioning
       - IN: chatbot-170-infrastructure_master
         switch: off
+      - IN: provisioning
+        switch: off
       - TASK:
         - script: chmod +x $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/*.sh
         - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/ensure-terraform.sh 0.11.5
