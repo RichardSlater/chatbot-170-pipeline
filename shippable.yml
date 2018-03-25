@@ -34,7 +34,7 @@ jobs:
     type: runSh
     steps:
       - IN: azure_cli_config
-      - IN: scheduled_deprovisioning
+      - IN: schedule_2230
       - IN: github_cb170_infra_master
         switch: off
       - IN: provisioning
