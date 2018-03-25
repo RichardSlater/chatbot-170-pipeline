@@ -2,18 +2,18 @@ language: none
 
 resources:
 
-  - name: chatbot-170-infrastructure_master
+  - name: github_cb170_infra_master
     type: gitRepo
     integration: github
     versionTemplate:
       sourceName: RichardSlater/chatbot-170-infrastructure
       branch: master
 
-  - name: azure_cli_configuration
+  - name: azure_cli_config
     type: cliConfig
     integration: Azure (Chatbot Experiments)
 
-  - name: scheduled_deprovisioning
+  - name: schedule_2230
     type: time
     versionTemplate:
       interval: "30 22 * * *"
@@ -22,25 +22,25 @@ jobs:
   - name: provisioning
     type: runSh
     steps:
-      - IN: azure_cli_configuration
-      - IN: chatbot-170-infrastructure_master
+      - IN: azure_cli_config
+      - IN: github_cb170_infra_master
       - TASK:
-        - script: chmod +x $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/*.sh
-        - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/ensure-terraform.sh 0.11.5
-        - script: . $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/export-azure-environment.sh
-        - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/execute-terraform.sh apply
+        - script: chmod +x $GITHUB_CB170_INFRA_MASTER_STATE/scripts/*.sh
+        - script: $GITHUB_CB170_INFRA_MASTER_STATE/scripts/ensure-terraform.sh 0.11.5
+        - script: . $GITHUB_CB170_INFRA_MASTER_STATE/scripts/export-azure-environment.sh
+        - script: $GITHUB_CB170_INFRA_MASTER_STATE/scripts/execute-terraform.sh apply
 
   - name: deprovisioning
     type: runSh
     steps:
-      - IN: azure_cli_configuration
+      - IN: azure_cli_config
       - IN: scheduled_deprovisioning
-      - IN: chatbot-170-infrastructure_master
+      - IN: github_cb170_infra_master
         switch: off
       - IN: provisioning
         switch: off
       - TASK:
-        - script: chmod +x $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/*.sh
-        - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/ensure-terraform.sh 0.11.5
-        - script: . $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/export-azure-environment.sh
-        - script: $CHATBOT170INFRASTRUCTURE_MASTER_STATE/scripts/execute-terraform.sh destroy
+        - script: chmod +x $GITHUB_CB170_INFRA_MASTER_STATE/scripts/*.sh
+        - script: $GITHUB_CB170_INFRA_MASTER_STATE/scripts/ensure-terraform.sh 0.11.5
+        - script: . $GITHUB_CB170_INFRA_MASTER_STATE/scripts/export-azure-environment.sh
+        - script: $GITHUB_CB170_INFRA_MASTER_STATE/scripts/execute-terraform.sh destroy
