@@ -1,7 +1,15 @@
 language: none
 
-resources:
+integrations:
+  notifications:
+    - integrationName: Amido Slack (#chatbots)
+      type: slack
+      recipients: "#chatbots"
+      on_success: change
+      on_failure: change
+      on_pull_request: always
 
+resources:
   - name: cb170_infra_master
     type: gitRepo
     integration: github
